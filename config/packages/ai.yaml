@@ -1,0 +1,42 @@
+ai:
+    platform:
+        openai:
+            api_key: '%env(OPENAI_API_KEY)%'
+    agent:
+        youtube:
+            model:
+                class: 'Symfony\AI\Platform\Bridge\OpenAi\Gpt'
+                name: 'gpt-4o-mini'
+            tools: false
+        # Configure agents for the phpdd, wikipedia and blog use cases
+    store:
+        chroma_db:
+            symfonycon:
+                collection: 'symfony_blog'
+    vectorizer:
+        openai:
+            model:
+                class: 'Symfony\AI\Platform\Bridge\OpenAi\Embeddings'
+                name: !php/const Symfony\AI\Platform\Bridge\OpenAi\Embeddings::TEXT_ADA_002
+    indexer:
+        blog:
+            loader: 'App\Blog\FeedLoader'
+            source: 'https://feeds.feedburner.com/symfony/blog'
+            transformers:
+                - 'Symfony\AI\Store\Document\Transformer\TextTrimTransformer'
+            vectorizer: 'ai.vectorizer.openai'
+            store: 'ai.store.chroma_db.symfonycon'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Symfony\AI\Agent\Toolbox\Tool\Clock:
+        $timezone: 'Europe/Berlin'
+    Symfony\AI\Agent\Toolbox\Tool\Wikipedia: ~
+    Symfony\AI\Agent\Toolbox\Tool\SimilaritySearch:
+        $vectorizer: '@ai.vectorizer.openai'
+        $store: '@ai.store.chroma_db.symfonycon'
+
+    Symfony\AI\Store\Document\Transformer\TextTrimTransformer: ~

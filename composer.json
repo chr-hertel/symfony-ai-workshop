@@ -1,0 +1,103 @@
+{
+    "name": "chr-hertel/php-dd-workshop",
+    "description": "Symfony AI Workshop at PHP Developer Day 2025 in Dresden",
+    "license": "MIT",
+    "type": "project",
+    "require": {
+        "php": ">=8.4",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "codewithkyrian/chromadb-php": "^0.4.0",
+        "league/commonmark": "^2.7",
+        "mrmysql/youtube-transcript": "^0.0.5",
+        "php-http/discovery": "^1.20",
+        "runtime/frankenphp-symfony": "^0.2.0",
+        "symfony/ai-bundle": "@dev",
+        "symfony/asset": "~7.3.0",
+        "symfony/asset-mapper": "~7.3.0",
+        "symfony/clock": "~7.3.0",
+        "symfony/console": "~7.3.0",
+        "symfony/css-selector": "~7.3.0",
+        "symfony/dom-crawler": "~7.3.0",
+        "symfony/dotenv": "~7.3.0",
+        "symfony/flex": "^2.5",
+        "symfony/framework-bundle": "~7.3.0",
+        "symfony/http-client": "~7.3.0",
+        "symfony/monolog-bundle": "^3.10",
+        "symfony/runtime": "~7.3.0",
+        "symfony/twig-bundle": "~7.3.0",
+        "symfony/uid": "~7.3.0",
+        "symfony/ux-icons": "^2.25",
+        "symfony/ux-live-component": "^2.25",
+        "symfony/ux-turbo": "^2.25",
+        "symfony/ux-typed": "^2.25",
+        "symfony/yaml": "~7.3.0",
+        "twig/extra-bundle": "^3.21",
+        "twig/markdown-extra": "^3.21",
+        "twig/twig": "^3.21"
+    },
+    "require-dev": {
+        "php-cs-fixer/shim": "^3.75",
+        "phpstan/phpstan": "^2.1",
+        "phpunit/phpunit": "^11.5",
+        "symfony/browser-kit": "~7.3.0",
+        "symfony/debug-bundle": "~7.3.0",
+        "symfony/stopwatch": "~7.3.0",
+        "symfony/web-profiler-bundle": "~7.3.0"
+    },
+    "replace": {
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-mbstring": "*",
+        "symfony/polyfill-php72": "*",
+        "symfony/polyfill-php73": "*",
+        "symfony/polyfill-php74": "*",
+        "symfony/polyfill-php80": "*",
+        "symfony/polyfill-php81": "*",
+        "symfony/polyfill-php82": "*",
+        "symfony/polyfill-php83": "*",
+        "symfony/polyfill-php84": "*"
+    },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true,
+            "symfony/flex": true,
+            "symfony/runtime": true
+        },
+        "sort-packages": true
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "7.3.*"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ],
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd",
+            "importmap:install": "symfony-cmd"
+        }
+    }
+}
