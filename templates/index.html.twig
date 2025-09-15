@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block body_class 'index' %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="text-dark-emphasis">Welcome to the <strong class="text-dark">Symfony AI</strong> Workshop</h1>
+        <p class="my-4 text-dark">
+            This is a small demo app, that we want to wrap up as challenge of today's Symfony AI workshop.<br />
+            There are four chat apps with described target behavior below. Implementation will be done in corresponding
+            namespaces, e.g. <code>App\YouTube</code>,<br />
+            and configuration can be found in <code>config/packages/ai.yaml</code>.
+        </p>
+        <h3 class="text-dark">Workshop Examples</h3>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card youtube bg-body shadow-sm">
+                    <div class="card-img-top py-2">
+                        {{ ux_icon('bi:youtube', { height: '150px', width: '150px' }) }}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">YouTube Transcript Bot</h5>
+                        <p class="card-text">Question answering started with a YouTube video ID which gets converted into a transcript.</p>
+                        <a href="{{ path('youtube') }}" class="btn btn-outline-dark d-block">Try YouTube Transcript Bot</a>
+                    </div>
+                    {# Profiler route only available in dev #}
+                    {% if 'dev' == app.environment %}
+                        <div class="card-footer">
+                            {{ ux_icon('solar:code-linear', { height: '20px', width: '20px' }) }}
+                            <a href="{{ path('_profiler_open_file', { file: 'src/YouTube/Chat.php', line: 21 }) }}">See Implementation</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card phpdd bg-body shadow-sm">
+                    <div class="card-img-top py-2">
+                        {{ ux_icon('cib:php', { height: '150px', width: '150px' }) }}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">PHP Developer Day Bot</h5>
+                        <p class="card-text">Question answering based on the schedule of the PHP Developer Day 2025 in Dresden.</p>
+                        <a href="" class="btn btn-outline-dark d-block">Try PHP Developer Day Bot</a>
+                    </div>
+                    {# Profiler route only available in dev #}
+                    {% if 'dev' == app.environment %}
+                        <div class="card-footer">
+                            {{ ux_icon('solar:code-linear', { height: '20px', width: '20px' }) }}
+                            <a href="{{ path('_profiler_open_file', { file: 'src/YouTube/Chat.php', line: 21 }) }}">See Implementation</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card wikipedia bg-body shadow-sm">
+                    <div class="card-img-top py-2">
+                        {{ ux_icon('mdi:wikipedia', { height: '150px', width: '150px' }) }}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Wikipedia Research Bot</h5>
+                        <p class="card-text">A chatbot equipped with tools to search and read on Wikipedia about topics the user asks for.</p>
+                        <a href="{{ path('wikipedia') }}" class="btn btn-outline-dark d-block">Try Wikipedia Research Bot</a>
+                    </div>
+                    {# Profiler route only available in dev #}
+                    {% if 'dev' == app.environment %}
+                        <div class="card-footer">
+                            {{ ux_icon('solar:code-linear', { height: '20px', width: '20px' }) }}
+                            <a href="{{ path('_profiler_open_file', { file: 'src/Wikipedia/Chat.php', line: 21 }) }}">See Implementation</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card blog bg-body shadow-sm">
+                    <div class="card-img-top py-2">
+                        {{ ux_icon('mdi:symfony', { height: '150px', width: '150px' }) }}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Symfony Blog Bot</h5>
+                        <p class="card-text">Retrieval Augmented Generation (RAG) based on Symfony's blog dumped to a vector store.</p>
+                        <a href="{{ path('blog') }}" class="btn btn-outline-dark d-block">Try Symfony Blog Bot</a>
+                    </div>
+                    {# Profiler route only available in dev #}
+                    {% if 'dev' == app.environment %}
+                        <div class="card-footer">
+                            {{ ux_icon('solar:code-linear', { height: '20px', width: '20px' }) }}
+                            <a href="{{ path('_profiler_open_file', { file: 'src/Blog/Chat.php', line: 21 }) }}">See Implementation</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

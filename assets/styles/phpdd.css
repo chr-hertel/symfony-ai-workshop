@@ -1,0 +1,49 @@
+.phpdd {
+    body&, .card-img-top {
+        background: rgb(143, 162, 212);
+        background: linear-gradient(0deg, rgb(143, 162, 212) 0%, rgb(60, 82, 148) 100%);
+    }
+
+    .card-img-top {
+        color: #df7f18;
+    }
+
+    &.chat {
+        .user-message {
+            background: #3e2926;
+            color: #fafafa;
+        }
+
+        .bot-message {
+            color: #ffffff;
+            background: #df7f18;
+
+            &.loading {
+                color: rgba(255, 255, 255, 0.5);
+            }
+        }
+
+        .avatar {
+            &.bot {
+                outline: 1px solid #ffd2a4;
+                background: #ffd2a4;
+            }
+
+            &.user {
+                outline: 1px solid #9e8282;
+                background: #9e8282;
+            }
+        }
+
+        #welcome h4 {
+            color: #df7f18;
+        }
+
+        #chat-reset, #chat-submit {
+            &:hover {
+                background: #df7f18;
+                border-color: #df7f18;
+            }
+        }
+    }
+}

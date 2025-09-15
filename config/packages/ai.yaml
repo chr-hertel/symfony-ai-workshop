@@ -1,0 +1,70 @@
+ai:
+    platform:
+        openai:
+            api_key: '%env(OPENAI_API_KEY)%'
+    agent:
+        youtube:
+            model:
+                class: 'Symfony\AI\Platform\Bridge\OpenAi\Gpt'
+                name: 'gpt-4o-mini'
+            tools: false
+        phpdd:
+            model:
+                class: 'Symfony\AI\Platform\Bridge\OpenAi\Gpt'
+                name: 'gpt-4o-mini'
+            memory:
+                service: 'App\PhpDd\ConferenceMemory'
+            tools:
+                - 'Symfony\AI\Agent\Toolbox\Tool\Clock'
+        wikipedia:
+            model:
+                class: 'Symfony\AI\Platform\Bridge\OpenAi\Gpt'
+                name: 'gpt-4o-mini'
+                options:
+                    temperature: 0.5
+            prompt:
+                text: 'Please answer the users question based on Wikipedia and provide a link to the article.'
+                include_tools: true
+            tools:
+                - 'Symfony\AI\Agent\Toolbox\Tool\Wikipedia'
+        blog:
+            model:
+                class: 'Symfony\AI\Platform\Bridge\OpenAi\Gpt'
+                name: 'gpt-4o-mini'
+            tools:
+                - 'Symfony\AI\Agent\Toolbox\Tool\SimilaritySearch'
+                - service: 'clock'
+                  name: 'clock'
+                  description: 'Provides the current date and time.'
+                  method: 'now'
+    store:
+        chroma_db:
+            symfonycon:
+                collection: 'symfony_blog'
+    vectorizer:
+        openai:
+            model:
+                class: 'Symfony\AI\Platform\Bridge\OpenAi\Embeddings'
+                name: !php/const Symfony\AI\Platform\Bridge\OpenAi\Embeddings::TEXT_ADA_002
+    indexer:
+        blog:
+            loader: 'App\Blog\FeedLoader'
+            source: 'https://feeds.feedburner.com/symfony/blog'
+            transformers:
+                - 'Symfony\AI\Store\Document\Transformer\TextTrimTransformer'
+            vectorizer: 'ai.vectorizer.openai'
+            store: 'ai.store.chroma_db.symfonycon'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Symfony\AI\Agent\Toolbox\Tool\Clock:
+        $timezone: 'Europe/Berlin'
+    Symfony\AI\Agent\Toolbox\Tool\Wikipedia: ~
+    Symfony\AI\Agent\Toolbox\Tool\SimilaritySearch:
+        $vectorizer: '@ai.vectorizer.openai'
+        $store: '@ai.store.chroma_db.symfonycon'
+
+    Symfony\AI\Store\Document\Transformer\TextTrimTransformer: ~
