@@ -11,8 +11,10 @@
 
 namespace App\PhpDd;
 
+use Symfony\AI\Agent\AgentInterface;
 use Symfony\AI\Platform\Message\Message;
 use Symfony\AI\Platform\Message\MessageBag;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 final class Chat
@@ -21,6 +23,8 @@ final class Chat
 
     public function __construct(
         private readonly RequestStack $requestStack,
+        #[Autowire(service: 'ai.agent.phpdd')]
+        private readonly AgentInterface $agent,
     ) {
     }
 
@@ -34,8 +38,8 @@ final class Chat
         $messages = $this->loadMessages();
 
         $messages->add(Message::ofUser($message));
-        sleep(1); // Simulate thinking time
-        $messages->add(Message::ofAssistant('Not a clever response.'));
+        $response = $this->agent->call($messages);
+        $messages->add(Message::ofAssistant($response->getContent()));
 
         $this->saveMessages($messages);
     }

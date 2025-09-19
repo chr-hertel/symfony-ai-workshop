@@ -8,7 +8,35 @@ ai:
                 class: 'Symfony\AI\Platform\Bridge\OpenAi\Gpt'
                 name: 'gpt-4o-mini'
             tools: false
-        # Configure agents for the phpdd, wikipedia and blog use cases
+        phpdd:
+            model:
+                class: 'Symfony\AI\Platform\Bridge\OpenAi\Gpt'
+                name: 'gpt-4o-mini'
+            tools:
+                - 'Symfony\AI\Agent\Toolbox\Tool\Clock'
+            prompt: 'You are a helpful assistant for answering questions about the PHP Developer Days conference.'
+            memory:
+                service: 'App\PhpDd\ConferenceMemory'
+        wikipedia:
+            model:
+                class: 'Symfony\AI\Platform\Bridge\OpenAi\Gpt'
+                name: 'gpt-4o-mini'
+            tools:
+                - 'Symfony\AI\Agent\Toolbox\Tool\Wikipedia'
+            prompt: |
+                You are a helpful assistant for answering the users questions based on Wikipedia articles.
+                Please provide the link to an article for further reading.
+        blog:
+            model:
+                class: 'Symfony\AI\Platform\Bridge\OpenAi\Gpt'
+                name: 'gpt-4o-mini'
+            tools:
+                - 'Symfony\AI\Agent\Toolbox\Tool\Clock'
+                - 'Symfony\AI\Agent\Toolbox\Tool\SimilaritySearch'
+            prompt: |
+                You are a helpful assistant for answering the users questions based on Symfony blog articles.
+                If you don't know the answer, just say "I don't know".
+                Please provide the link to the article for further reading.
     store:
         chroma_db:
             symfonycon:
