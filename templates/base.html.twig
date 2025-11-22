@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Symfony AI Workshop{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/ico" href="{{ asset('favicon.ico') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        {% block stylesheets %}
+        {% endblock %}
+
+        {% block javascripts %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% endblock %}
+    </head>
+    <body class="{{ block('body_class') }}">
+        <nav class="navbar bg-white shadow-lg navbar-expand">
+            <div class="container">
+                <a class="navbar-brand ms-2 p-0" href="{{ path('index') }}">
+                    {{ ux_icon('fluent:bot-24-filled', { height: '40px', width: '40px' }) }}
+                    <strong>Symfony AI</strong> Workshop
+                </a>
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav ms-auto me-2 mb-0 small">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">{{ ux_icon('bi:youtube', { height: '20px', width: '20px' }) }} YouTube</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">{{ ux_icon('mdi:cook', { height: '20px', width: '20px' }) }} Recipe</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">{{ ux_icon('mdi:wikipedia', { height: '20px', width: '20px' }) }} Wikipedia</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">{{ ux_icon('mdi:symfony', { height: '20px', width: '20px' }) }} Symfony Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">{{ ux_icon('iconoir:microphone-solid', { height: '20px', width: '20px' }) }} Audio</a>
+                        </li>
+                        <li class="nav-item"><span class="nav-link">|</span></li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://symfony.com/doc/current/ai/index.html" target="_blank">{{ ux_icon('tabler:book', { height: '20px', width: '20px' }) }} Docs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://github.com/symfony/ai" target="_blank">{{ ux_icon('mdi:github', { height: '20px', width: '20px' }) }} GitHub</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container pt-5">
+            {% block content %}{% endblock %}
+            <footer class="py-4 text-center">
+                <a href="https://ai.symfony.com" target="_blank">Symfony AI</a> Workshop at {{ conference.name }}
+                &bullet;
+                Feel free to raise ideas and issues on <a href="https://github.com/symfony/ai" target="_blank">GitHub</a>
+            </footer>
+        </div>
+    </body>
+</html>

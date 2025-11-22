@@ -1,0 +1,61 @@
+.conference {
+    body& {
+        background: #f3f4fa;
+        background: linear-gradient(180deg, #4bc2cd 0%, #4c1d95 100%);
+
+        footer, footer a {
+            color: rgba(255, 255, 255, 0.8);
+        }
+    }
+
+    &.chat {
+        .user-message {
+            background: #4bc2cd;
+            color: #ffffff;
+        }
+
+        .bot-message {
+            color: #ffffff;
+            background: #6e358c;
+
+            &.loading {
+                color: rgba(255, 255, 255, 0.5);
+            }
+
+            a {
+                color: #d8c8ef;
+
+                &:hover {
+                    color: #ffffff;
+                }
+            }
+
+            code {
+                color: #ffb1ca;
+            }
+        }
+
+        .avatar {
+            &.bot {
+                outline: 1px solid #d6bde3;
+                background: #d6bde3;
+            }
+
+            &.user {
+                outline: 1px solid #9bc7cd;
+                background: #9bc7cd;
+            }
+        }
+
+        #welcome h4 {
+            color: #2c2c2c;
+        }
+
+        #chat-reset, #chat-submit {
+            &:hover {
+                background: #4d719a;
+                border-color: #4d719a;
+            }
+        }
+    }
+}
