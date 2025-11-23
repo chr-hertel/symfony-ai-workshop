@@ -1,0 +1,3 @@
+_mcp:
+    resource: .
+    type: mcp
