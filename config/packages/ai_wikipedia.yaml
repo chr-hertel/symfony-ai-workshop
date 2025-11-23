@@ -1,0 +1,24 @@
+ai:
+    agent:
+        wikipedia:
+            platform: 'ai.platform.openai'
+            model:
+                name: 'gpt-4o-mini'
+                options:
+                    temperature: 0.5
+            prompt:
+                text: 'Please answer the users question based on Wikipedia, only use information provided in the messages.'
+                include_tools: true
+            tools:
+                - 'Symfony\AI\Agent\Bridge\Clock\Clock'
+                - 'Symfony\AI\Agent\Bridge\Wikipedia\Wikipedia'
+            include_sources: true
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Symfony\AI\Agent\Bridge\Clock\Clock:
+        $timezone: 'Europe/Berlin'
+    Symfony\AI\Agent\Bridge\Wikipedia\Wikipedia: ~
