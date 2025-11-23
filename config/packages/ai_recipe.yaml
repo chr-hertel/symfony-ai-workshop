@@ -1,0 +1,13 @@
+ai:
+    agent:
+        recipe:
+            platform: 'ai.platform.openai'
+            model: 'gpt-4o-mini'
+            prompt:
+                text: 'You are a helpful cooking assistant. Provide detailed recipes based on user requests.'
+            tools: false
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
