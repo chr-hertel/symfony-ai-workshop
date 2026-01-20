@@ -1,7 +1,7 @@
 ai:
     platform:
-        # Inference Platform configuration
-        # see https://github.com/symfony/ai/tree/main/src/platform#platform-bridges
+        openai:
+            api_key: '%env(OPENAI_API_KEY)%'
 
     agent:
         # Agent configuration
