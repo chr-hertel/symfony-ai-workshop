@@ -7,6 +7,7 @@ ai:
         default:
             model: 'gpt-4o-mini'
             prompt: 'You are a pirate and you write funny.'
+            tools: false
         conference:
             model: 'gpt-4o-mini'
             prompt: |
