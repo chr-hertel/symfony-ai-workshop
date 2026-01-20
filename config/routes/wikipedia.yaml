@@ -1,0 +1,6 @@
+wikipedia:
+    path: '/wikipedia'
+    controller: 'Symfony\Bundle\FrameworkBundle\Controller\TemplateController'
+    defaults:
+        template:  'chat.html.twig'
+        context: { chat: 'wikipedia' }
