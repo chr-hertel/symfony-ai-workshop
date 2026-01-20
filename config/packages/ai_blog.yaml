@@ -1,0 +1,43 @@
+ai:
+    agent:
+        blog:
+            platform: 'ai.platform.openai'
+            model: 'gpt-4o-mini'
+            tools:
+                - 'symfony_blog_search'
+                - service: 'clock'
+                  name: 'clock'
+                  description: 'Provides the current date and time.'
+                  method: 'now'
+    store:
+        chromadb:
+            symfony_blog:
+                collection: 'symfony_blog'
+    vectorizer:
+        openai:
+            platform: 'ai.platform.openai'
+            model: 'text-embedding-ada-002'
+    indexer:
+        blog:
+            loader: 'Symfony\AI\Store\Document\Loader\RssFeedLoader'
+            source: 'https://feeds.feedburner.com/symfony/blog'
+            transformers:
+                - 'Symfony\AI\Store\Document\Transformer\TextSplitTransformer'
+                - 'Symfony\AI\Store\Document\Transformer\TextTrimTransformer'
+            vectorizer: 'ai.vectorizer.openai'
+            store: 'ai.store.chromadb.symfony_blog'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Symfony\AI\Store\Document\Loader\RssFeedLoader: ~
+    Symfony\AI\Store\Document\Transformer\TextSplitTransformer: ~
+    Symfony\AI\Store\Document\Transformer\TextTrimTransformer: ~
+
+    symfony_blog_search:
+        class: Symfony\AI\Agent\Bridge\SimilaritySearch\SimilaritySearch
+        arguments:
+            $vectorizer: '@ai.vectorizer.openai'
+            $store: '@ai.store.chromadb.symfony_blog'
