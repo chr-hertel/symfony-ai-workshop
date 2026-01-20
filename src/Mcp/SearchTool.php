@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 final readonly class SearchTool
 {
     public function __construct(
-        #[Autowire(service: 'symfonycon_schedule_search')]
+        #[Autowire(service: 'symfony_schedule_search')]
         private SimilaritySearch $scheduleSearch,
         #[Autowire(service: 'symfony_blog_search')]
         private SimilaritySearch $blogSearch,
