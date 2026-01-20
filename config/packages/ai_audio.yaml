@@ -9,6 +9,10 @@ ai:
                 you delegate to your subagent "symfony_blog" and use their answer for answering user's questions.
                 If you don't know the answer, say so. Keep in mind that you are in a spoken conversation, so keep your
                 answers concise and to the point. They will be read out loud to the user.
+            tools:
+                - agent: 'conference'
+                  name: 'conference_bot'
+                  description: 'Provides information about the upcoming SymfonyOnline conference 2026.'
 
 services:
     _defaults:
