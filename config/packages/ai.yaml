@@ -4,8 +4,9 @@ ai:
             api_key: '%env(OPENAI_API_KEY)%'
 
     agent:
-        # Agent configuration
-        # see https://symfony.com/doc/current/ai/bundles/ai-bundle.html
+        default:
+            model: 'gpt-4o-mini'
+            prompt: 'You are a pirate and you write funny.'
 
     store:
         # Store configuration

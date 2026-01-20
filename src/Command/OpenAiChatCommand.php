@@ -2,17 +2,19 @@
 
 namespace App\Command;
 
+use Symfony\AI\Agent\AgentInterface;
 use Symfony\AI\Platform\Message\Message;
 use Symfony\AI\Platform\Message\MessageBag;
-use Symfony\AI\Platform\PlatformInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 #[AsCommand('app:openai:chat', 'Chat with GPT')]
 final readonly class OpenAiChatCommand
 {
     public function __construct(
-        private PlatformInterface $platform,
+        #[Autowire(service: 'ai.agent.default')]
+        private AgentInterface $agent,
     ) {
     }
 
@@ -21,13 +23,12 @@ final readonly class OpenAiChatCommand
         $message = $io->ask('What is the message?');
 
         $messageBag = new MessageBag(
-            Message::forSystem('You are a pirate and you write funny.'),
             Message::ofUser($message),
         );
 
-        $response = $this->platform->invoke('gpt-4o-mini', $messageBag);
+        $response = $this->agent->call($messageBag);
 
-        $io->block($response->asText());
+        $io->block($response->getContent());
 
         return 0;
     }
