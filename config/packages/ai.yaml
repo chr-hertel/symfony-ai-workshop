@@ -15,6 +15,8 @@ ai:
                 if you don't have information about it in the context of the conversation, but say you don't know.
                 Always be polite and friendly, respond in a professional manner. Please use markdown for formatting
                 and emojis where appropriate.
+            memory:
+                service: 'App\Conference\ConferenceFacts'
 
     store:
         # Store configuration
