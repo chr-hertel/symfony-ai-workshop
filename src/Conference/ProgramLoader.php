@@ -5,8 +5,9 @@ namespace App\Conference;
 use App\Conference\Data\Event;
 use App\Conference\Scraper\Client;
 use App\Conference\Scraper\Parser;
+use Symfony\AI\Store\Document\LoaderInterface;
 
-final readonly class ProgramLoader
+final readonly class ProgramLoader implements LoaderInterface
 {
     public function __construct(
         private Client $client,
@@ -17,7 +18,7 @@ final readonly class ProgramLoader
     /**
      * @return iterable<Event>
      */
-    public function load(): iterable
+    public function load(?string $source = null, array $options = []): iterable
     {
         $schedule = $this->client->getSchedule();
 

@@ -18,6 +18,29 @@ ai:
                 and emojis where appropriate.
             memory:
                 service: 'App\Conference\ConferenceFacts'
+            tools:
+                - 'App\Conference\ClockTool'
+                - service: 'symfony_schedule_search'
+                  name: 'conference_schedule_search'
+                  description: 'Useful to answer questions about the conference schedule, sessions, speakers, and timings.'
 
     store:
-        # Store configuration
+        chromadb:
+            conference_schedule:
+                collection: 'conference_schedule'
+    indexer:
+        conference:
+            loader: 'App\Conference\ProgramLoader'
+            vectorizer: 'ai.vectorizer.openai'
+            store: 'ai.store.chromadb.conference_schedule'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    symfony_schedule_search:
+        class: Symfony\AI\Agent\Bridge\SimilaritySearch\SimilaritySearch
+        arguments:
+            $vectorizer: '@ai.vectorizer.openai'
+            $store: '@ai.store.chromadb.conference_schedule'

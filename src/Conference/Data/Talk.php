@@ -2,6 +2,8 @@
 
 namespace App\Conference\Data;
 
+use Symfony\AI\Store\Document\Metadata;
+
 class Talk extends Event
 {
     public function __construct(
@@ -33,5 +35,26 @@ class Talk extends Event
     public function isOver(\DateTimeImmutable $now): bool
     {
         return $now > $this->getTimeSpan()->getEnd();
+    }
+
+    public function getContent(): string
+    {
+        return <<<CONTENT
+            Title: {$this->getTitle()}
+            Speaker: {$this->getSpeaker()}
+            Description: {$this->getDescription()}
+            Track: {$this->getTrack()}
+            Time Span: {$this->getTimeSpan()->toString()}
+            CONTENT;
+    }
+
+    public function getMetadata(): Metadata
+    {
+        return new Metadata([
+            ...parent::getMetadata()->getArrayCopy(),
+            'speaker' => $this->getSpeaker(),
+            'description' => $this->getDescription(),
+            'track' => $this->getTrack(),
+        ]);
     }
 }
