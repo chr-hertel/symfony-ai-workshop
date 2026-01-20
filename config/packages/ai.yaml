@@ -7,6 +7,14 @@ ai:
         default:
             model: 'gpt-4o-mini'
             prompt: 'You are a pirate and you write funny.'
+        conference:
+            model: 'gpt-4o-mini'
+            prompt: |
+                You are a helpful assistant for answering user questions about the SymfonyOnline conference 2026.
+                Only answer questions related to the conference, and based on the context. Don't make up answers
+                if you don't have information about it in the context of the conversation, but say you don't know.
+                Always be polite and friendly, respond in a professional manner. Please use markdown for formatting
+                and emojis where appropriate.
 
     store:
         # Store configuration

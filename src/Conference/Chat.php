@@ -11,8 +11,10 @@
 
 namespace App\Conference;
 
+use Symfony\AI\Agent\AgentInterface;
 use Symfony\AI\Platform\Message\Message;
 use Symfony\AI\Platform\Message\MessageBag;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 final readonly class Chat
@@ -21,6 +23,8 @@ final readonly class Chat
 
     public function __construct(
         private RequestStack $requestStack,
+        #[Autowire(service: 'ai.agent.conference')]
+        private AgentInterface $agent,
     ) {
     }
 
@@ -34,10 +38,9 @@ final readonly class Chat
         $messages = $this->loadMessages();
 
         $messages->add(Message::ofUser($message));
-        sleep(2);
-        $result = mt_rand(1, 10) > 5 ? $message : 'This is not a clever response.';
+        $result = $this->agent->call($messages);
 
-        $messages->add(Message::ofAssistant($result));
+        $messages->add(Message::ofAssistant($result->getContent()));
 
         $this->saveMessages($messages);
     }
